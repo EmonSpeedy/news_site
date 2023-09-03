@@ -1,0 +1,20 @@
+{% extends 'base.html' %} 
+{% block body %}
+
+<h1>Rate Article</h1>
+<h2>{{ article.headline }}</h2>
+
+{% if user_rating %}
+<p>Your Rating: {{ user_rating.rating }}</p>
+{% endif %}
+
+<form method="post" action="{% url 'rate_article' article.id %}">
+  {% csrf_token %} 
+  {{ form.as_p }}
+  <button type="submit">Submit Rating</button>
+</form>
+
+<p>Average Rating: {{ article.get_average_rating }}</p>
+
+<a href="{% url 'article_detail' article.id %}">Back to Article</a>
+{% endblock %}

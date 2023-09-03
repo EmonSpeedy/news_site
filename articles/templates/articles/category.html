@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %} {% endblock title %} 
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">ENZ.News</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href=""><b>Home</b></a>
+        </li>
+     
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-md-8">
+        <!-- News articles go here -->
+        <h2>{{category.category_name}}</h2>
+        {% if articles %}
+        {% for article in articles %}
+        <div class="card mb-4">
+          <div class="card-body">
+            <a class="text-reset text-decoration-none" href="{% url 'article_detail' article.id %}" class="card-title">{{article.headline}}</a>
+            <p class="card-text">{{article.body | slice:":150"}}... </p>
+          </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h6>No articles to show.</h6>
+        {% endif %}
+        <!-- More news articles go here -->
+      </div>
+    </div>
+  </div>
+
+{% endblock body %}

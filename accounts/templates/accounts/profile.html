@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">ENZ.News</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+    
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}"><b>Home</b></a>
+        </li>
+     
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">{{request.user.first_name}}'s Profile</h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" value="{{ user.username }}" readonly>
+          </div>
+          <div class="form-group">
+            <label for="first_name">First Name:</label>
+            <input type="text" class="form-control" id="first_name" value="{{ user.first_name }}" readonly>
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input type="text" class="form-control" id="last_name" value="{{ user.last_name }}" readonly>
+          </div>
+          <div class="form-group">
+            <label for="email">Account Type:</label>
+            <input type="email" class="form-control" id="email" value="{{ user.user_choice }}" readonly>
+          </div>
+        </div>
+      </div>
+      {% if user.user_choice == 'editor' %}
+      <a href="{% url 'create_article' %}" class="btn btn-primary mx-2">Add an Article</a>
+      {% endif %}
+    </div>
+    {% if articles %}
+    <h4 class="mt-4">Articles Created by {{ user.first_name }}:</h4>
+    <ul>
+      {% for article in articles %}
+      <li>
+        <a href="{% url 'article_detail' article.id %}">{{ article.headline }}</a>
+        <!-- Display other article details as needed -->
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No articles created by {{ user.first_name }}.</p>
+    {% endif %}
+
+
+  </div>
+</div>
+
+
+
+{% endblock body %}
+
